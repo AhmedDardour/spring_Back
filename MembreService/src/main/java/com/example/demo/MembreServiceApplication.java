@@ -11,19 +11,24 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import com.example.demo.Service.IMemberService;
+import com.example.demo.Service.PublicationProxyService;
 import com.example.demo.dao.MemberRepository;
 import com.example.demo.entities.EnseignantChercheur;
 import com.example.demo.entities.Etudiant;
 import com.example.demo.entities.Membre;
+import com.example.demo.publicationBean.PublicationBean;
 //insertion de deux membres
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
  public class MembreServiceApplication implements CommandLineRunner {
+
   @Autowired
   MemberRepository membreRepository; // naaml injection des dependences bech naaml lcrud(save)
   @Autowired
   IMemberService memberService;
+  @Autowired
+  PublicationProxyService publicationProxyService;
 	public static void main(String[] args) {
 		SpringApplication.run(MembreServiceApplication.class, args);
 		}
@@ -53,7 +58,7 @@ import com.example.demo.entities.Membre;
 		// Delete a Member
 		memberService.deleteMember(2L); // supprimer la ligne2
 		memberService.affectEtudiantToEnseignant(1L,5L) ;//affecter a un etudiant un encadrant
-
+		
 }
 
 }

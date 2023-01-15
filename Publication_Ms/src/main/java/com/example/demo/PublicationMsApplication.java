@@ -32,7 +32,6 @@ public class PublicationMsApplication implements CommandLineRunner {
 		@SuppressWarnings("deprecation")
 		Publication pub2= new Publication("bitcoin", "book","white paper","book2",new Date(19,11,2021));
 		publicationRepository.save(pub2);
-	
 
 	}
 

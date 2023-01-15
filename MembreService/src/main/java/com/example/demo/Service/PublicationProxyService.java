@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.publicationBean.PublicationBean;
 
 
-@FeignClient(name = "PUBLICATION-SERVICE" , url = "/publications")
+@FeignClient(name = "publication-service" , url = "/publications")
 public interface PublicationProxyService {
 	@GetMapping("/{id}")
 	public  PublicationBean findById(@PathVariable(name = "id") Long id) ;

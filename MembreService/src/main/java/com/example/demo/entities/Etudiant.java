@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @DiscriminatorValue("etd")
 public class Etudiant extends Membre implements Serializable {
@@ -57,7 +60,8 @@ public class Etudiant extends Membre implements Serializable {
 		return serialVersionUID;
 	}
 
-	
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+		      property = "id")
 	@ManyToOne
 	private EnseignantChercheur encadrant; //kol etudiant 3ando un seul encadrant
 

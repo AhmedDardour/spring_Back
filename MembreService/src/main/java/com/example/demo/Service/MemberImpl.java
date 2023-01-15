@@ -2,6 +2,7 @@ package com.example.demo.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class MemberImpl implements IMemberService {
     @Autowired
     EnseignantChercheurRepository enseignantChercheurRepository;
     
+	
     @Autowired
     private PublicationProxyService publicationProxyService;
     
@@ -63,7 +65,20 @@ public class MemberImpl implements IMemberService {
 	@Override
 	public List<Membre> findAll() {
 		// TODO Auto-generated method stub
-		return memberRepository.findAll();}
+		return  memberRepository.findAll().stream().peek(t -> 
+		 {
+			 
+			 if( t instanceof Etudiant ) {
+					t.setType("STUDENT");
+				}else {
+					t.setType("TEACHER");
+				}
+		 }
+		 ).collect(Collectors.toList());
+		
+				
+	
+	}
 		
 	
 
@@ -118,18 +133,13 @@ public class MemberImpl implements IMemberService {
 
 	@Override
 	public void affecterauteurTopublication(Long idauteur, Long idpub) {
+		
 		Membre mbr= memberRepository.findById(idauteur).get();
 		Publication_Membre mbs= new Publication_Membre();
-		Membre_Pub_Ids ids = new Membre_Pub_Ids();
-		ids.setAuteur_id(idauteur);
-		ids.setPublication_id(idpub);
-		mbs.setId(ids);
 		mbs.setAuteur(mbr);
+		mbs.setId(new Membre_Pub_Ids(idpub, idauteur));
 		membrepubrepository.save(mbs);
-
-
-	}
-
+		}
 	@Override
 	public List<PublicationBean> findPublicationparauteur(Long idauteur) {
 		List<PublicationBean> pubs=new ArrayList<PublicationBean>();

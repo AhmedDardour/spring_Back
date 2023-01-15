@@ -14,6 +14,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.Lob;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.example.demo.publicationBean.PublicationBean;
 @Entity
@@ -28,6 +29,22 @@ public abstract class Membre implements Serializable{
     private Date date;
     @Lob 
     private byte [] photo;
+    
+
+    @Transient
+    private String type;
+    
+    
+    
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	@Transient
+	Collection<PublicationBean> pubs;
 	public Long getId() {
 		return id;
 	}
@@ -37,8 +54,7 @@ public abstract class Membre implements Serializable{
 	public void setPubs(Collection<PublicationBean> pubs) {
 		this.pubs = pubs;
 	}
-	@javax.persistence.Transient
-	Collection<PublicationBean> pubs;
+
 	public void setId(Long id) {
 		this.id = id;
 	}

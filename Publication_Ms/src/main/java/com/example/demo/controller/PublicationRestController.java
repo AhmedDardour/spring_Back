@@ -23,7 +23,7 @@ public class PublicationRestController {
 	@Autowired
 	IPublicationService PublicationService;
 
-	@RequestMapping(value = "/Publications", method = RequestMethod.GET)
+	@RequestMapping(value = "/publications", method = RequestMethod.GET)
 	public List<Publication> findPublications() {
 		return PublicationService.findAll();
 	}
